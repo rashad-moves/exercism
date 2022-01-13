@@ -8,7 +8,6 @@ main() {
   declare -i local total=0
   declare -i local number_to_add=0
   number=$(strip_whitespace "$number")
-  number=$(strip_leading_zeros "$number")
   
   check_preconditions "$number"
   
@@ -17,7 +16,7 @@ main() {
     #echo "index $i"
     number_to_add=${number:$i:1}
     #echo "number_to_add $number_to_add"
-    if (( i % 2 == 0 )); then
+    if (( ("${#number}" - i) % 2 == 0 )); then
       number_to_add=${number_to_add}*2;
       #echo "number_to_add $number_to_add after inside mod 2"
       if (( number_to_add >= 10 )); then
