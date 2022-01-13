@@ -1,4 +1,4 @@
-bats-extra.bats
+bats-extra.bash
 *.bak
 .exercism
 HELP.md
