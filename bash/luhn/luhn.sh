@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 
-shopt -s extglob
-
 main() {
   local result="false"
-  local number="${1//*( )/}"
-  declare -i local total=0
-  declare -i local number_to_add=0
+  local number="${1//[[:space:]]/}"
+  local total=0
+  local number_to_add=0
   
   check_preconditions "${number}"
   
   for (( i=0; i < "${#number}"; i++)); do
-    number_to_add=${number:$i:1}
+    number_to_add="${number:$i:1}"
     if (( ("${#number}" - i) % 2 == 0 )); then
-      number_to_add="${number_to_add}"*2;
+      (( number_to_add="${number_to_add}" * 2 ))
       if (( number_to_add >= 10 )); then
-         number_to_add+=-9
+        (( number_to_add+=-9 ))
       fi
     fi
-    total+=number_to_add
+    (( total+="$number_to_add" ))
   done
 
   (( total % 10 == 0 )) && result="true"
@@ -32,7 +30,7 @@ check_preconditions() {
 }
 
 must_contain_only_numbers() {
-  local without_numbers="${1//[0-9]/}"
+  local without_numbers="${1//[[:digit:]]/}"
   (( "${#without_numbers}" > 0 )) && fail
 }
 
