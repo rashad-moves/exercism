@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 
-    while IFS= read -r line; do
+while IFS= read -r line; do
 
 
 while true; do
-orig=$line
-if [[ $line =~ ^(.+)__(.*) ]]; then
-post=${BASH_REMATCH[2]};pre=${BASH_REMATCH[1]}
-if [[ $pre =~ ^(.*)__(.+) ]]; then
-printf -v line "%s<strong>%s</strong>%s"  "${BASH_REMATCH[1]}"  "${BASH_REMATCH[2]}"  "$post"
-fi
-fi
-[ "$line" != "$orig" ] || break
+  orig=$line
+  if [[ $line =~ ^(.+)__(.*) ]]; then
+    post=${BASH_REMATCH[2]};pre=${BASH_REMATCH[1]}
+    if [[ $pre =~ ^(.*)__(.+) ]]; then
+      printf -v line "%s<strong>%s</strong>%s"  "${BASH_REMATCH[1]}"  "${BASH_REMATCH[2]}"  "$post"
+    fi
+  fi
+  [ "$line" != "$orig" ] || break
 done
 
         echo "$line" | grep '^\*' > /dev/null 2>&1
