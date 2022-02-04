@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
+add_bold_html() {
+  while [ "$line" != "$orig" ]; do
+    orig=$line
+    if [[ $line =~ ^(.+)__(.*) ]]; then
+      post=${BASH_REMATCH[2]}
+      pre=${BASH_REMATCH[1]}
+      if [[ $pre =~ ^(.*)__(.+) ]]; then
+        printf -v line "%s<strong>%s</strong>%s"  "${BASH_REMATCH[1]}"  "${BASH_REMATCH[2]}"  "$post"
+      fi
+    fi
+  done
+}
 
 while IFS= read -r line; do
-
-while [ "$line" != "$orig" ]; do
-  orig=$line
-  if [[ $line =~ ^(.+)__(.*) ]]; then
-    post=${BASH_REMATCH[2]}
-    pre=${BASH_REMATCH[1]}
-    if [[ $pre =~ ^(.*)__(.+) ]]; then
-      printf -v line "%s<strong>%s</strong>%s"  "${BASH_REMATCH[1]}"  "${BASH_REMATCH[2]}"  "$post"
-    fi
-  fi
-done
+  add_bold_html
 
         echo "$line" | grep '^\*' > /dev/null 2>&1
         if [ $? -eq 0 ]; then
