@@ -2,3 +2,5 @@ bats-extra.bash
 *.bak
 .exercism
 HELP.md
+
+node_modules
