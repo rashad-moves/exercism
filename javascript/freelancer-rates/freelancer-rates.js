@@ -38,7 +38,7 @@ export function priceWithMonthlyDiscount(ratePerHour, numDays, discount) {
   const nonDiscountedDays = numDays - discountedDays;
 
   const nonDiscountPrice = dayRate(ratePerHour) * nonDiscountedDays; 
-  const discountPrice = dayRate(ratePerHour) * discountedDays * discount;
+  const discountPrice = dayRate(ratePerHour) * discountedDays * (1 -  discount);
 
   result = nonDiscountPrice + discountPrice;
   result = Math.ceil(result);
