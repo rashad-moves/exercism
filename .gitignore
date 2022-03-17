@@ -4,3 +4,4 @@ bats-extra.bash
 HELP.md
 
 node_modules
+package-lock.json
